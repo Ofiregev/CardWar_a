@@ -3,24 +3,23 @@
 #define PLAYER_HPP
 #include <iostream>
 #include <string>
+#include "stack.hpp"
 
 using namespace std;
 namespace ariel {
     class Player {
         private:
             string name;
+            Stack personal_stack;
+            int cards_taken;
         public:
             Player();
 
             Player(string name); // Constructor
+            void setStackSize(int size);
+            string get_name();
             int stacksize();
             int cardesTaken();
-            string get_name();
-            int get_stack_size();
-            int get_cards_taken();
-            void add_card();
-            void add_cards(int num_cards);
-            void clear_cards();
     };
 }
 

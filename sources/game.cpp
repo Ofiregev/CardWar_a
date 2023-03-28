@@ -11,8 +11,6 @@ namespace ariel
     }
     void Game::printLastTurn()
     {
-        cout << "The card is 5 heart Black\n";
-
     }
     void Game::playAll()
     {
