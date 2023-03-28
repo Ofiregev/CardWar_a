@@ -22,6 +22,10 @@ TEST_CASE("Test 1 - Initialization")
     CHECK(p2.stacksize() == 26);
     CHECK(p1.cardesTaken() == 0);
     CHECK(p2.cardesTaken() == 0);
+    CHECK(p1.getPoints() == 0);
+    CHECK(p2.getPoints() == 0);
+    
+
 
 }
 TEST_CASE("Test 2 - Check stacksize during game")
@@ -50,9 +54,16 @@ TEST_CASE("Test 3 - Check tie (war) between p1 and p2")
     Card p2_card = Card(Heart, Two, Red);
     p1.getPersonalStack().setTopCard(p1_card);
     p2.getPersonalStack().setTopCard(p2_card);
+    
     game.playTurn();
     CHECK(p1.stacksize() <= 23);
     CHECK(p2.stacksize() <= 23);
+    Card card = Card(Heart, Two, Black);
+    p1.getPersonalStack().setTopCard(card);
+
+    CHECK(p1.liftCard().getCard().getNumber() == card.getNumber());
+
+
 
     
 
@@ -142,14 +153,7 @@ TEST_CASE("Test 4 - Check stacksize during game")
     game.printStats();
     cout.rdbuf(statPrinted); // store the message printed from printWiner
     CHECK(stat.str() == status);
-    CHECK(1 ==1);
-    CHECK(1 ==1);
-    // CHECK(1 ==1);
-    // CHECK(1 ==1);
-    // CHECK(1 ==1);
-    // CHECK(1 ==1);
-    // CHECK(1 ==1);
-    // CHECK(1 ==1);
-    // CHECK(1 ==1);// 
+
+    
 
 }

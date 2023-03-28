@@ -15,6 +15,7 @@ namespace ariel {
             int cards_taken = 0;
             int draws_number = 0;
             
+            
         public:
             Player();
 
@@ -22,7 +23,6 @@ namespace ariel {
             void setStackSize(int size);
             Stack getPersonalStack();
             void setCardsTaken(int cards);
-            int points;
             string get_name();
             int stacksize();
             int cardesTaken();
@@ -31,6 +31,7 @@ namespace ariel {
             Card liftCard();
             string getStatus();
             void setDrawsNumber(int num);
+            int points = 0;
 
     };
 }

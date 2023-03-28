@@ -28,7 +28,7 @@ namespace ariel
         return "-1";
     }
     int Player::getPoints(){
-        return -1;
+        return this->points;
     }
     void Player::setPoints(int point){
         this->points = this->points+point;
