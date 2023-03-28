@@ -5,7 +5,9 @@ using namespace std;
 
 namespace ariel
 {
-    Stack::Stack() {}
+    Stack::Stack() {
+        this->size = 26;
+    }
     Stack::Stack(int size){}
     Card Stack::getTopCard()
     {

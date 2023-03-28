@@ -14,6 +14,7 @@ namespace ariel {
             string status;
             int cards_taken = 0;
             int draws_number = 0;
+            int points = 0;
             
             
         public:
@@ -31,7 +32,7 @@ namespace ariel {
             Card liftCard();
             string getStatus();
             void setDrawsNumber(int num);
-            int points = 0;
+            
 
     };
 }

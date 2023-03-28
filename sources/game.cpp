@@ -18,12 +18,12 @@ namespace ariel
 
         if (p1_card.getNumber() > p2_card.getNumber())
         {
-            p1.points = p1.points+1;
+            p1.setPoints(1);
             this->setLastTurn(p1.get_name() + "played-"+ p1_card.toString() +"\n"+ p2.get_name() + "played-"+ p2_card.toString() +"."+ p1.get_name()+"win");
             p2.setCardsTaken(2);
         }
         else if(p2_card.getNumber() > p1_card.getNumber()){
-            p2.points = p2.points+1;
+            p2.setPoints(1);
             this->setLastTurn(p1.get_name() + "played-"+ p1_card.toString() +"\n"+ p2.get_name() + "played-"+ p2_card.toString() +"."+ p2.get_name()+"win");
             p1.setCardsTaken(2);
         }else{

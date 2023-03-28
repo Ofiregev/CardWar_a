@@ -10,7 +10,7 @@ namespace ariel {
     class Stack {
         private:
             Card top_card;
-            int size =26;
+            int size;
         public:
             Stack();
             Stack(int size_of_stack);
