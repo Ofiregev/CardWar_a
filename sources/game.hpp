@@ -13,6 +13,7 @@ namespace ariel
     Player p2;
     string last_turn = "starting game";
     Player winner;
+    string log = "";
   public:
     Game(Player p1, Player p2); // Constructor
     void playTurn();
@@ -26,6 +27,9 @@ namespace ariel
     void setLastTurn(string last_turn);
     Player getWinner();
     void setWinner(Player name);
+    string getLog();
+    void setLog(string name);
+
 
   };
 }

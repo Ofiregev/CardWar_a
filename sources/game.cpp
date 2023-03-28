@@ -66,6 +66,12 @@ namespace ariel
     void Game::setWinner(Player name){
         this->winner = name;
     }
+     string Game::getLog(){
+        return this->log;
+    }
+    void Game::setLog(string log){
+        this->log = this->log + log;
+    }
 
 
 

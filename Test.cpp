@@ -24,63 +24,41 @@ TEST_CASE("Test 1 - Initialization")
     CHECK(p2.cardesTaken() == 0);
     CHECK(p1.getPoints() == 0);
     CHECK(p2.getPoints() == 0);
-    
-
-
+    CHECK_THROWS(p1.getPersonalStack().setStackSize(-1));
+    CHECK_THROWS(p1.setCardsTaken(57));
 }
-TEST_CASE("Test 2 - Check stacksize during game")
+TEST_CASE("Test 2 - Check stacksize())")
+{
+    SUBCASE("Check stack after redefinition of the players"){
+
+    Player p3("Avi");
+    Player p4("Ofir");
+    Game game2(p3, p4);
+    CHECK(p3.stacksize() == 26);
+    CHECK(p4.stacksize() == 26);
+    }
+    SUBCASE("Check stack after playAll function"){
+    Player p1("Ofir");
+    Player p2("Avi");
+    Game game(p1, p2);
+    game.playAll();
+    CHECK_THROWS(game.playTurn());
+    }
+}
+
+TEST_CASE("Test 3 - Check card function working well")
 {
     Player p1("Alice");
     Player p2("Bob");
-
     Game game(p1, p2);
-    game.playTurn();
-    CHECK(p1.stacksize() == 25);
-    CHECK(p2.stacksize() == 25);
-    p1.getPersonalStack().setStackSize(-1);
-    p1.setCardsTaken(57);
-    CHECK_THROWS(p1.stacksize());
-    CHECK_THROWS(p1.cardesTaken());
-    
-
-}
-TEST_CASE("Test 3 - Check tie (war) between p1 and p2")
-{
-    Player p1("Alice");
-    Player p2("Bob");
-
-    Game game(p1, p2);
-    Card p1_card = Card(Heart, Two, Black);
-    Card p2_card = Card(Heart, Two, Red);
-    p1.getPersonalStack().setTopCard(p1_card);
-    p2.getPersonalStack().setTopCard(p2_card);
-    
-    game.playTurn();
-    CHECK(p1.stacksize() <= 23);
-    CHECK(p2.stacksize() <= 23);
     Card card = Card(Heart, Two, Black);
     p1.getPersonalStack().setTopCard(card);
-
     CHECK(p1.liftCard().getCard().getNumber() == card.getNumber());
-
-
-
-    
-
-    // Redirect the output stream to a stringstream
-    // create 2 cards with equal value
-    // add each card two every player stack- on top
-    // playTurn()- tie occures.
-    // palyer who won, now has at least 6 cards aside- 2 tie, 2 upsidedwon, 2 open
-    // both players have at least 3 less in hand
+    p2.getPersonalStack().takeAcard();
+    CHECK(p2.stacksize() == 25);
 }
-
-// // during war, one player runs out of cards
-// // during war, both players run out of cards
-// // valid value and sign of cards
-
-
-TEST_CASE("Check war between 2 players"){
+TEST_CASE("Test 4 - Check war between 2 players")
+{
     Player p1("Alice");
     Player p2("Bob");
     Game game(p1, p2);
@@ -100,7 +78,24 @@ TEST_CASE("Check war between 2 players"){
     CHECK(p2.stacksize() == 25);
     CHECK(p1.stacksize() == 25);
 }
-TEST_CASE("Game stopped when one player wins")
+TEST_CASE("Test 5 - Check tie (war) between p1 and p2")
+{
+    Player p1("Alice");
+    Player p2("Bob");
+    Game game(p1, p2);
+
+    Card p1_card = Card(Heart, Two, Black);
+    Card p2_card = Card(Heart, Two, Red);
+    p1.getPersonalStack().setTopCard(p1_card);
+    p2.getPersonalStack().setTopCard(p2_card);
+
+    game.playTurn();
+
+    CHECK(p1.stacksize() <= 23); // after a tie each player used at least 3 cards
+    CHECK(p2.stacksize() <= 23);
+}
+
+TEST_CASE("Test 6 - Check full game - winner and ending status")
 {
     Player p1("Alice");
     Player p2("Bob");
@@ -115,26 +110,23 @@ TEST_CASE("Game stopped when one player wins")
     cout.rdbuf(winnerPrinted); // store the message printed from printWiner
     CHECK(actuallWinner.str() == winnerName);
     CHECK(game.getWinner().stacksize() == 0);
-    CHECK(game.getWinner().cardesTaken() <=52);
-
-
+    CHECK(game.getWinner().cardesTaken() <= 52);
 }
-
-TEST_CASE("Test 4 - Check stacksize during game")
+TEST_CASE("Test 7 - Check printLog")
 {
     Player p1("Alice");
     Player p2("Bob");
-
     Game game(p1, p2);
     game.playAll();
-    CHECK_THROWS(game.playTurn());
-    Game game2(p1,p2);
-    game.playTurn();
-    CHECK(p1.stacksize() == 25);
-
-
+    string log = game.getLog();
+    stringstream log_stream;
+    streambuf *logPrinted = cout.rdbuf();
+    cout.rdbuf(log_stream.rdbuf());
+    game.printLog();
+    cout.rdbuf(logPrinted); // store the message printed from printWiner
+    CHECK(log_stream.str() == log);
 }
-TEST_CASE("Test 4 - Check stacksize during game")
+TEST_CASE("Test 8 - Check printStat")
 {
     Player p1("Alice");
     Player p2("Bob");
@@ -153,7 +145,4 @@ TEST_CASE("Test 4 - Check stacksize during game")
     game.printStats();
     cout.rdbuf(statPrinted); // store the message printed from printWiner
     CHECK(stat.str() == status);
-
-    
-
 }
