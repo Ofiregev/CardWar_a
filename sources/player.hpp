@@ -11,15 +11,27 @@ namespace ariel {
         private:
             string name;
             Stack personal_stack;
-            int cards_taken;
+            string status;
+            int cards_taken = 0;
+            int draws_number = 0;
+            
         public:
             Player();
 
             Player(string name); // Constructor
             void setStackSize(int size);
+            Stack getPersonalStack();
+            void setCardsTaken(int cards);
+            int points;
             string get_name();
             int stacksize();
             int cardesTaken();
+            int getPoints();
+            void setPoints(int point);
+            Card liftCard();
+            string getStatus();
+            void setDrawsNumber(int num);
+
     };
 }
 

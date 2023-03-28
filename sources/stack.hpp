@@ -10,13 +10,15 @@ namespace ariel {
     class Stack {
         private:
             Card top_card;
-            int size;
+            int size =26;
         public:
             Stack();
             Stack(int size_of_stack);
             Card getTopCard();
             int getSize();
-
+            void takeAcard();
+            void setTopCard(Card card);
+            void setStackSize(int size);
   };
 }
 

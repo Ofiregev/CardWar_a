@@ -12,11 +12,13 @@ namespace ariel
     Player::Player(string name)
     {
         this->name = name;
+        this->points =0;
+        this->cards_taken=0;
     }
     void Player::setStackSize(int size){}
     int Player::stacksize()
     {
-        return -1;
+        return this->getPersonalStack().getSize();
     }
     int Player::cardesTaken()
     {
@@ -24,6 +26,30 @@ namespace ariel
     }
     string Player::get_name(){
         return "-1";
+    }
+    int Player::getPoints(){
+        return -1;
+    }
+    void Player::setPoints(int point){
+        this->points = this->points+point;
+    }
+    Card Player::liftCard(){
+        return personal_stack.getTopCard();
+    }
+    Stack Player::getPersonalStack(){
+        return this->personal_stack;
+    }
+    void Player::setCardsTaken(int cards){
+        if(cards > 52){
+            throw "error";
+        }
+        this->cards_taken = this->cards_taken+cards;
+    }
+    string Player::getStatus(){
+        return (std::to_string(this->draws_number) + std::to_string(this->points) + std::to_string(this->cardesTaken()));
+    }
+    void Player::setDrawsNumber(int num){
+        this->draws_number = num;
     }
 
 };
