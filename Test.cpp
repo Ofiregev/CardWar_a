@@ -6,7 +6,6 @@
 #include "sources/player.hpp"
 #include "sources/game.hpp"
 #include "sources/card.hpp"
-#include "namespace.hpp"
 
 using namespace std;
 using namespace ariel;
